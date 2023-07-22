@@ -69,12 +69,23 @@
   
     export default {
         data() {
-        return {
+            return {
             items: [],
             expandedStates: Array.from(100, () => false),
             search: "",
-        };
-        }
+            };
+        },
+        mounted() {
+        fetch('https://dummyjson.com/users')
+            .then(response => response.json())
+            .then(data => {
+            this.items = data;
+            console.log(data)
+            })
+            .catch(error => {
+            console.error(error);
+            })
+        },
     }
   </script>
   

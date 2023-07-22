@@ -31,11 +31,23 @@
     
     <script>
     export default {
-      data() {
-        return {
-          items: [],
-        };
-      }
+        data() {
+            return {
+            items: [],
+            search: "",
+            };
+        },
+        mounted() {
+        fetch('https://dummyjson.com/products')
+            .then(response => response.json())
+            .then(data => {
+            this.items = data;
+            console.log(data)
+            })
+            .catch(error => {
+            console.error(error);
+            });
+        },
     }
     
     </script>

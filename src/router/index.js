@@ -31,6 +31,11 @@ const routes = [
     name: 'Users',
     component: () => import('@/views/Users.vue'),
   },
+  {
+    path: '/updateuser',
+    name: 'UpdateUser',
+    component: () => import('@/views/UpdateUser.vue'),
+  },
 ]
 
 const router = createRouter({

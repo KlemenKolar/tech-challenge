@@ -29,6 +29,9 @@
             :title=item.title
             height="450px"
           >
+          <v-btn prepend-icon="mdi-delete" class="delete-button" @click="deleteUser(item.id)">
+          API doesn't actually delete.
+        </v-btn>
           <div class="d-flex justify-center" :id="item.id">
             <v-card width="300px">
               <v-card-title class="font-weight-medium">{{ item.firstName + " " + item.lastName }}</v-card-title>
@@ -117,7 +120,15 @@
             isExpanded(index) {
             return this.expandedStates[index] === true;
             },
+            deleteUser(id){
+                fetch('https://dummyjson.com/users/' + id, {
+                method: 'DELETE',
+                })
+                .then(res => res.json())
+                .then(console.log);
+                router.push("home");
             },
+        },
     }
   </script>
   

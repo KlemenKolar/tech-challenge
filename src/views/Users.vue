@@ -1,5 +1,19 @@
 <template>
     <h1>Users</h1>
+    <v-card-text>
+      <v-text-field
+        type="text"
+        v-model="search"
+        density="compact"
+        variant="solo"
+        label="Search users"
+        append-inner-icon="mdi-magnify"
+        single-line
+        hide-details
+        @click:append-inner="filteredUsers"
+        @input="filteredUsers"
+      ></v-text-field>
+    </v-card-text>
   <v-divider class="border-opacity-25" color="success" :thickness="4"></v-divider>
     <v-container>
       <v-row>
@@ -15,9 +29,6 @@
             :title=item.title
             height="450px"
           >
-          <v-btn prepend-icon="mdi-delete" class="delete-button" @click="deleteUser(item.id)">
-            API doesn't actually delete.
-        </v-btn>
           <div class="d-flex justify-center" :id="item.id">
             <v-card width="300px">
               <v-card-title class="font-weight-medium">{{ item.firstName + " " + item.lastName }}</v-card-title>
@@ -86,6 +97,27 @@
             console.error(error);
             })
         },
+        methods: {
+            filteredUsers(){
+                console.log(this.search);
+                fetch('https://dummyjson.com/users/search?q=' + this.search)
+                .then(response => response.json())
+                .then(data => {
+                this.items = data;
+                console.log(data)
+                })
+                .catch(error => {
+                console.error(error);
+                })
+            },
+            toggleExpand(id){
+                console.log(id);
+                this.expandedStates[id] = !this.expandedStates[id];
+            },
+            isExpanded(index) {
+            return this.expandedStates[index] === true;
+            },
+            },
     }
   </script>
   

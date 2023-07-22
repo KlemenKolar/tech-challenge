@@ -1,5 +1,19 @@
 <template>
     <h1>Products</h1>
+    <v-card-text>
+      <v-text-field
+        type="text"
+        v-model="search"
+        density="compact"
+        variant="solo"
+        label="Search products"
+        append-inner-icon="mdi-magnify"
+        single-line
+        hide-details
+        @click:append-inner="filteredProducts"
+        @input="filteredProducts"
+      ></v-text-field>
+    </v-card-text>
     <v-divider class="border-opacity-25" color="success" :thickness="4"></v-divider>
       <v-container>
         <v-row>
@@ -47,6 +61,20 @@
             .catch(error => {
             console.error(error);
             });
+        },
+        methods: {
+            filteredProducts(){
+                console.log(this.search);
+                fetch('https://dummyjson.com/products/search?q=' + this.search)
+                .then(response => response.json())
+                .then(data => {
+                this.items = data;
+                console.log(data)
+                })
+                .catch(error => {
+                console.error(error);
+                })
+            },
         },
     }
     
